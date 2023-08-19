@@ -50,7 +50,7 @@ void prntStack (knot *beg) {
 	if(beg == NULL) {
 		printf("The stack is empty!\n");
 	} else {
-			printf("Val\tCurrent\tNext\n");
+			printf("Val\tCurrent\t\tNext\n");
 		do {
 		    printf("%d\t%p\t%p\n", read->val, read, read->nxt);
 			read = read->nxt;
@@ -69,7 +69,7 @@ void mMenu (int *men) {
     #endif
 	printf ("Main Menu\n\n1-PileUp\n2-PileDown\n3-ListaAllValues\n4-Exit\n\nInsert your option: ");
 	scanf ("%d", men);
-	while (*men < 1 || *men > 3) {
+	while (*men < 1 || *men > 4) {
 		printf ("Invalid option, try again: ");
 		scanf ("%d", men);
 	}
