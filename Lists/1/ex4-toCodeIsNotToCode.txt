@@ -1,0 +1,3 @@
+Passar parâmetros para uma função por referência ou por valor:
+Referência: uma cópia deste valor não é gerada, assim reduzindo o consumo de memória, mas requer dois acessos distintos a mesma.
+Valor: uma cópia deste valor é gerada, impactando negativamente o consumo de memória (há mais consumo, e virtualmente nenhum ganho de performance), não necessitando dois acessos distintos, já que o valor está no próprio endereço, e não em outro.

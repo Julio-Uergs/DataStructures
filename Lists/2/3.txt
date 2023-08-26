@@ -1,0 +1,5 @@
+Bubble Sort: É chamado assim, pois remete a bolhas flutuando da água até a superfície. Geralmente se pega os menores valores os move até o topo, comparando novamente a cada movimentação. Não é um algoritmo eficiente, mas é comummente utilizado em ambientes de ensino por ter uma lógica simples e consistente de implementação.
+
+Quick Sort: É chamado assim, pois é um algoritmo mais eficiente do que o Bubble Sort, utilizando de um pivô (podendo ser escolhido pseudo-aleatóriamente, ou deterministicamente) e ordena todos os elementos, separando os maiores do que ele de um lado e os menores de outro. Isso é efetuado diversas vezes em partições da lista cada vez menores até que todos os elementos estejam ordenados.
+
+Merge Sort: É chamado assim, pois neste algoritmo a lista é divida em metades, ordenadas separadamente e subsequentemente reintegradas/mescladas (merge), curiosamente, este algoritmo mantém a ordem de elementos iguais, coisa que o Quick Sort não faz por padrão.

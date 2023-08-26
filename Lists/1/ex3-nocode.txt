@@ -1,0 +1,1 @@
+A diferença entre *fim->próximo e (*fim)->próximo é que o segundo pode gerar um erro se fim for NULL, já que não existe um valor para qual NULL aponta.
