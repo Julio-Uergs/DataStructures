@@ -70,30 +70,34 @@ void pileB4Val (knot **beg, int val) { //i know it's not that way, but you get w
 	} else {
 		getVal(&srch);
 		do {
-			if(read->next == NULL) { //se for o primeiro da lista
+			if(read->next == NULL) {
 				if(read->val == srch) {
-
-				}
-			} else
-			if(read->next->val == srch) {
-				if((new = (knot*) malloc (sizeof(knot))) == NULL) {
+					if((new = (knot*) malloc (sizeof(knot))) == NULL) {
 					printf("Memory Full!\nPress Return to Main Menu");
 					getchar();
 				} else {
 					new->val = val;					//atribuí o valor para a variável final.
-					new->next = read->next->next;
-					read->next = new;				//
+					new->next = NULL;
+					*beg = new;
+					}
 				}
 			} else {
-				read = read->next;
+				if(read->next->val == srch) {
+					if((new = (knot*) malloc (sizeof(knot))) == NULL) {
+						printf("Memory Full!\nPress Return to Main Menu");
+						getchar();
+					} else {
+						new->val = val;
+						new->next = read->next->next;
+						read->next = new;
+					}
+				} else {
+					read = read->next;
+				}
 			}
-			//printf("Val: %d\tEnd: %p\n", read->val, read->next);
 		} while (read != NULL);
-		//printf("saiu do loop\n");
-		new->next = read->next;
-		//printf("Val: %d\tEnd: %p\n", new->val, new->next);
-		read->next = new;
-		// printf("Val: %d\tEnd: %p\n", read->val, read->next);
+			new->next = read->next;
+			read->next = new;
 	}
 }
 
@@ -147,7 +151,7 @@ void srchStack (knot *beg) {
 			read = read->next;
 		} while (read != NULL);
 		if (check == false) {
-		printf("Value %d no found!\n", val);
+		printf("Value %d not found!\n", val);
 		}
 	}
 	printf("Press Return to Main Menu");
