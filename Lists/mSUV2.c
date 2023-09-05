@@ -10,9 +10,33 @@
 #include <stdlib.h>
 
 typedef struct tie {
+	// struct tie *prev;
 	int val;
-	struct tie *nxt;
+	struct tie *next;
 } knot;
+
+void clear() {
+	#ifdef _WIN32
+		system("cls");
+    #endif
+    #ifdef linux
+		system("clear");
+    #endif
+}
+
+void clearStdin() {
+    int c = getchar();
+    while (c != '\n') { //do while c == n || c == EOF?
+        c = getchar();
+    }
+}
+
+void getVal (int *val) {
+	clear();
+	printf("Insert any value: ");
+	scanf("%d", val);
+	clearStdin();
+}
 
 void pileUp (knot **beg, int val) {
     knot *new;
@@ -22,44 +46,54 @@ void pileUp (knot **beg, int val) {
         new->val = val; 				//atribuí o valor para a variável final.
 		// printf("End Val: %p\tEnd Ptr: %p\n", &new->val, new);
         if (*beg == NULL)				//verifica se é o último  (ou, no caso, o único?) item da pilha
-            new->nxt = NULL;			//se sim, salva o ponteiro como NULL, indicando que ele é o último item.
+            new->next = NULL;			//se sim, salva o ponteiro como NULL, indicando que ele é o último item.
         else
-            new->nxt = *beg;			//se não, aponta para o "de baixo"
+            new->next = *beg;			//se não, aponta para o "de baixo"
         }
 		*beg = new;						//atribuí o novo início, já que ele sempre vai mudar.
 		printf("Press Return to Main Menu");
-		getchar(), getchar();
+		/*getchar(), */getchar();
 }
 
-void pileInBtwn (knot **beg, int val) { //i know it's not that way, but you get what I mean...
-    knot *new, *read = *beg;
-	int pos = 0;
-    if((new = (knot*) malloc (sizeof(knot))) == NULL) {
-        printf("Memory Full!\n");
-    } else {
-		if(*beg == NULL) {
-			printf("The stack is empty!\n");
+void pileB4Val (knot **beg, int val) { //i know it's not that way, but you get what I mean...
+    knot *new, *read = *beg, *aux = *beg;
+	int srch, i = 0;
+	if(*beg == NULL) {
+		if((new = (knot*) malloc (sizeof(knot))) == NULL) {
+			printf("Memory Full!\nPress Return to Main Menu");
+			getchar();
 		} else {
 			new->val = val;					//atribuí o valor para a variável final.
-			do {
-				//printf("%d ", pos);
-				pos++;						//incrementa contador total de posições
-				read = read->nxt;			//lê o próximo valor
-			} while (read != NULL);			//até o fim da lista
-			pos /= 2;						//pego a metade
-			read = *beg;					//reset
-			//printf("Val: %d\tEnd: %p\n", read->val, read->nxt);
-			//printf("%p\t%p\n", new, *beg);
-			for (int i = 1; i < pos; i++) {
-				read = read->nxt;
-				//printf("Val: %d\tEnd: %p\n", read->val, read->nxt);
-			}
-			//printf("saiu do loop\n");
-			new->nxt = read->nxt;
-			//printf("Val: %d\tEnd: %p\n", new->val, new->nxt);
-			read->nxt = new;
-			//printf("Val: %d\tEnd: %p\n", read->val, read->nxt);
+			new->next = NULL;
+			*beg = new;
 		}
+	} else {
+		getVal(&srch);
+		do {
+			if(read->next == NULL) { //se for o primeiro da lista
+				if(read->val == srch) {
+
+				}
+			} else
+			if(read->next->val == srch) {
+				if((new = (knot*) malloc (sizeof(knot))) == NULL) {
+					printf("Memory Full!\nPress Return to Main Menu");
+					getchar();
+				} else {
+					new->val = val;					//atribuí o valor para a variável final.
+					new->next = read->next->next;
+					read->next = new;				//
+				}
+			} else {
+				read = read->next;
+			}
+			//printf("Val: %d\tEnd: %p\n", read->val, read->next);
+		} while (read != NULL);
+		//printf("saiu do loop\n");
+		new->next = read->next;
+		//printf("Val: %d\tEnd: %p\n", new->val, new->next);
+		read->next = new;
+		// printf("Val: %d\tEnd: %p\n", read->val, read->next);
 	}
 }
 
@@ -72,11 +106,11 @@ void pileDown (knot **beg, int val) { 	//i know it's not that way, but you get w
 			printf("The stack is empty!\n");
 		} else {
 			new->val = val;					//atribuí o valor para a variável final.
-			while (read->nxt != NULL) {		//até o fim da lista
-				read = read->nxt;			//lê o próximo valor
+			while (read->next != NULL) {		//até o fim da lista
+				read = read->next;			//lê o próximo valor
 			}
-			new->nxt = NULL;
-			read->nxt = new;
+			new->next = NULL;
+			read->next = new;
 		}
     }
 }
@@ -89,27 +123,35 @@ void prntStack (knot *beg) {
 	} else {
 			printf("Val\tPos\tAddress\n");
 		do {
-		    printf("%d\t%d\t%p\n", read->val, pos++, read->nxt);
-			read = read->nxt;
+		    printf("%d\t%d\t%p\n", read->val, pos++, read->next);
+			read = read->next;
 	    } while (read != NULL);
 	}
 	printf("Press Return to Main Menu");
 	getchar(), getchar();
 }
 
-void srchStack (knot *beg, int val) {
+void srchStack (knot *beg) {
 	knot *read = beg;
-	if(beg == NULL)
+	int val;
+	bool check = false;
+	if(beg == NULL) {
 		printf("The stack is empty!\n");
-	else
+	} else {
+		getVal(&val);
 		do {
 			if(read->val == val) {
-				printf("%d\t%p\n", read->val, read->nxt);
+				printf("%d\t%p\n", read->val, read->next);
+				check = true;
 			}
-			read = read->nxt;
+			read = read->next;
 		} while (read != NULL);
+		if (check == false) {
+		printf("Value %d no found!\n", val);
+		}
+	}
 	printf("Press Return to Main Menu");
-	getchar(), getchar();
+	/*getchar(),*/ getchar();
 }
 
 void rmUp (knot **beg) {
@@ -117,8 +159,8 @@ void rmUp (knot **beg) {
 	if (read == NULL)
 		printf("The stack is empty!\n");
 	else {
-		if(read->nxt != NULL) {
-			*beg = read->nxt;
+		if(read->next != NULL) {
+			*beg = read->next;
 		} else {
 			*beg = NULL;
 		}
@@ -132,25 +174,25 @@ void rmUp (knot **beg) {
 void rmInBtwn (knot **beg) {
 	int pos = 0;
 	knot *read = *beg, *before;
-	if(read == NULL)
+	if (read == NULL)
 		printf("The stack is empty!\n");
 	else
-		do {
-			pos++;						//incrementa contador total de posições
-			read = read->nxt;			//lê o próximo valor
-		} while (read != NULL);			//até o fim da lista
-		pos /= 2;						//pego a metade
+		// do {
+		// 	pos++;						//incrementa contador total de posições
+		// 	read = read->next;			//lê o próximo valor
+		// } while (read != NULL);			//até o fim da lista
+		// 	pos /= 2;						//pego a metade
 		if (pos == 0) {
 			free(read);
 			*beg = NULL;
 		} else {
 			read = *beg;					//reset
 			for (int i = 1; i < pos; i++) {
-				read = read->nxt;
+				read = read->next;
 			}
 			before = read;
-			read = read->nxt;
-			before->nxt = read->nxt;
+			read = read->next;
+			before->next = read->next;
 			free(read);
 	}
 	printf("Press Return to Main Menu");
@@ -161,27 +203,22 @@ void rmDown (knot **beg) {
 	bool traversed = false;
 	knot *read = *beg, *aux;
 	if (read != NULL) {
-		while (read->nxt != NULL) {
+		while (read->next != NULL) {
 			aux = read;
-			read = read->nxt;
+			read = read->next;
 			traversed = true;
 		}
 		free(read);
 		if (!traversed)
 			*beg = NULL;
 		else
-			aux->nxt = NULL;
+			aux->next = NULL;
 	}
 }
 
 void mMenu (int *men) {
-    #ifdef _WIN32
-    system("cls");
-    #endif
-    #ifdef linux
-    system("clear");
-    #endif
-	printf ("Main Menu\n\n1-PileUp\n2-PileInBetween\n3-PileDown\n4-Search\n5-RemoveUp\n6-RemoveInBetween\n7-RemoveDown\n8-ListAllValues\n9-Exit\n\nInsert your option: ");
+    clear();
+	printf ("Main Menu\n\n1-PileUp\n2-PileBeforeVal\n3-PileDown\n4-Search\n5-RemoveUp\n6-RemoveInBetween\n7-RemoveDown\n8-ListAllValues\n9-Exit\n\nInsert your option: ");
 	scanf ("%d", men);
 	while (*men < 1 || *men > 9) {
 		printf ("Invalid option, try again: ");
@@ -189,16 +226,6 @@ void mMenu (int *men) {
 	}
 }
 
-void getVal (int *val) {
-	#ifdef _WIN32
-    system("cls");
-    #endif
-    #ifdef linux
-    system("clear");
-    #endif
-	printf("Insert any value: ");
-	scanf("%d", val);
-}
 
 int main () {
 	knot *beg = NULL;
@@ -210,13 +237,12 @@ int main () {
 					pileUp(&beg, val);
 					break;
 			case 2: getVal(&val);
-					pileInBtwn(&beg, val);
+					pileB4Val(&beg, val);
 					break;
 			case 3: getVal(&val);
 					pileDown(&beg, val);
 					break;
-			case 4: getVal(&val);
-					srchStack(beg, val);
+			case 4: srchStack(beg);
 					break;
 			case 5: rmUp(&beg);
 					break;

@@ -158,9 +158,10 @@ void recordSale(FILE *dB) {
 		printf("Insert the Pizza ammount: "); //no dark sarcasm in the classroom...
 		scanf("%d", &PAmmount);	
 		clearStdin();
-		printf("Insert the price paid by the client: "); //hey, teacher! Leave them kids alone!
-		scanf("%f", &CPaid);
-		clearStdin();
+		dB = fopen(, )
+		// printf("Insert the price paid by the client: "); //hey, teacher! Leave them kids alone!
+		// scanf("%f", &CPaid);
+		// clearStdin();
 		dB = fopen("PizzaDB/salesRecord.tsv", "a+"); //all in all, it's just a-nother brick in the wall
 		fprintf(dB, "%d\t%d\t%d\t%.2f\n", PCode, CCode, PAmmount, CPaid);
 		fclose(dB);
