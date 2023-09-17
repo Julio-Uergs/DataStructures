@@ -97,28 +97,27 @@ while (aux != NULL) {
   return achou;
 }
 
-void removeFromList(TypeNode **begList, int value, TypeNode *current,
-                    TypeNode *prev) {
-  TypeNode *freeP;
-  if (current != NULL) {
-if (current->value == value) {
-  if (prev == NULL) {
-    *begList = current->next;
-    freeP = current;
-    current = current->next;
-    free(freeP);
-    removeFromList(begList, value, current, NULL);
-  } else {
-    prev->next = current->next;
-    freeP = current;
-    current = current->next;
-    free(freeP);
-    removeFromList(begList, value, current, prev);
-  }
-} else {
-  removeFromList(begList, value, current->next, current);
-}
-  }
+void removeFromList(TypeNode **begList, int value, TypeNode *current, TypeNode *prev) {
+    TypeNode *freeP;
+    if (current != NULL) {
+        if (current->value == value) {
+            if (prev == NULL) {
+                *begList = current->next;
+                freeP = current;
+                current = current->next;
+                free(freeP);
+                removeFromList(begList, value, current, NULL);
+            } else {
+                prev->next = current->next;
+                freeP = current;
+                current = current->next;
+                free(freeP);
+                removeFromList(begList, value, current, prev);
+            }
+        } else {
+            removeFromList(begList, value, current->next, current);
+        }
+    }
 }
 
 int main() {

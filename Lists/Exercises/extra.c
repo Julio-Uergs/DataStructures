@@ -70,16 +70,17 @@ int main() {
 	knot *beg = NULL;
 	time_t fStart, oStart, oEnd, fEnd;
 	int val = 0;
-	fStart = time(NULL);
+	long *start, *end;
+	time(start);
 	while (val < 1000000) {
 		pileUp(&beg, val++);
 	}
-	fEnd = time(NULL);
+	time(end);
 	prntStack(beg);
 	//printf("\n\nEOF\n\n");
 	 oStart = time(NULL);
 	// bblSort(&beg);
 	 oEnd = time(NULL);
 	// prntStack(beg);
-	printf("It took %.2f s to order the list using bubble sort\nAdditionally, it took %.2f to fill the entire list with numbers and %.2f for the entire program to run.\n", (double)fEnd - (double) fStart, difftime(fEnd, fStart), (double) oEnd - (double) fStart);
+	printf("It took %f s to order the list using bubble sort\nAdditionally, it took %.2f to fill the entire list with numbers and %.2f for the entire program to run.\n", (double)(end - start), difftime(fEnd, fStart), (double) oEnd - (double) fStart);
 }

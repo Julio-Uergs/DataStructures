@@ -221,6 +221,10 @@ void openSalesHistory(FILE *dB) {
 	getchar(); clearStdin();
 }
 
+void batata (char* batata) {
+	printf(batata);
+}
+
 void mMenu(int *men) {
 	clear();
 	printf(YLW"                                     ._\n                                   ,(  `-.\n                                 ,': `.   `.\n                               ,` *   `-.   \\\n                             ,'  ` :+  = `.  `.\n                           ,~  "RED"(o)"YLW":  .,   `.  `.\n                         ,'  ; :   ,"RED"(__)"YLW" x;`.  ;\n                       ,'  :'  itz  ;  ; ; _,-'\n                     .'"RED"O"YLW" ; = _' C ; ;'_,_ ;\n                   ,;  _;   ` : ;'_,-'   i'\n                 ,` `;"RED"(_)"YLW"  "RED"0"YLW" ; ','       :\n               .';6     ; ' ,-'~\n             ,' "RED"Q"YLW"  ,& ;',-.'\n           ,( :` ; _,-'~  ;\n         ,~.`c _','\n       .';^_,-' ~\n     ,'_;-''\n    ,,~\n    i'\n    :\n\n\n\n"RED"1"YLW"-New pizza flav"RED"o"YLW"ur\n"RED"2"YLW"-New client entry\n"RED"3"YLW"-Rec"RED"o"YLW"rd complete "RED"o"YLW"rder\n"RED"4"YLW"-Read pizza menu\n"RED"5"YLW"-Read client data\n"RED"6"YLW"-Read past sales\n"RED"7"YLW"-Exit\n\nInsert y"RED"o"YLW"ur "RED"o"YLW"ption: "RED);
@@ -255,4 +259,5 @@ int main () {
 			}
 		} while (men != 7);
 	clear();
+	batata("hello world");
 }
