@@ -40,10 +40,9 @@ knot* findCar (knot *beg, int srch) {
     int index = 1; //bugado
     bool found = false;
     while (read != NULL) {
-        if (found) {
+        if (found || srch == index) {
             read->xMoved++;
-        }
-        if (srch == index) {
+        } if (srch == index) {
             flag = read;
             found = true;
         }
@@ -59,7 +58,7 @@ void prntGarage (knot *beg) {
 	if(beg == NULL) {
 		printf("The parking lot is empty!\n");
 	} else {
-			printf("Parking Spot\tLicense Plate\tTimes Moved\n");
+			printf("Parking Spot\tLicense  Plate\tTimes Moved\n");
 		do {
 		    printf("%.12d\t%p\t%d\n", pos++, read, read->xMoved);
 			read = read->next;
@@ -73,7 +72,7 @@ void prntStreet (knot *beg) {
 	if(beg == NULL) {
 		printf("The street is empty!\n");
 	} else {
-			printf("Street Spot\tLicense Plate\tTimes Moved\n");
+			printf("Street Spot\tLicense  Plate\tTimes Moved\n");
 		do {
 		    printf("%.12d\t%p\t%d\n", pos++, read, read->xMoved);
 			read = read->next;
@@ -115,7 +114,7 @@ void rmUp (knot **beg) { //remove no início
 		} else {
 			*beg = NULL;
 		}
-		printf("Car with plate %p was moved %d times before leaving the parking lot!\n\n", read, read->xMoved);
+		printf("Car with plate %p was moved %d times before leaving the parking lot!\n\n", read, (read->xMoved - 1));
 		free(read);
 	}
 }
@@ -131,7 +130,7 @@ void rmDown (knot **beg) { //remove no fim
             read = read->next;
             traversed = true;
         }
-        printf("Car with plate %p was moved %d times before leaving the parking lot!\n\n", read, read->xMoved);
+        printf("Car with plate %p was moved %d times before leaving the parking lot!\n\n", read, (read->xMoved - 1));
         free(read);
         if (!traversed)
             *beg = NULL;

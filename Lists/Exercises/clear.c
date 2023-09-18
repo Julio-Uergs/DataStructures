@@ -2,12 +2,12 @@
 #include <stdio.h>
 
 void clear() {
-        #ifdef _WIN32
-            system("cls");
-        #endif
-        #ifdef linux
-            system("clear");
-        #endif
+    #ifdef _WIN32
+        system("cls");
+    #endif
+    #ifdef linux
+        system("clear");
+    #endif
 }
 
 void clearStdin() {
