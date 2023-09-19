@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "typeinfo": "c",
-        "array": "c",
-        "string": "c",
-        "string_view": "c"
-    },
-    "C_Cpp.errorSquiggles": "disabled"
-}
