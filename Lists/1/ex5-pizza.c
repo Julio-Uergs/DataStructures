@@ -158,7 +158,7 @@ void recordSale(FILE *dB) {
 		printf("Insert the Pizza ammount: "); //no dark sarcasm in the classroom...
 		scanf("%d", &PAmmount);	
 		clearStdin();
-		dB = fopen(, )
+		// dB = fopen(, );
 		// printf("Insert the price paid by the client: "); //hey, teacher! Leave them kids alone!
 		// scanf("%f", &CPaid);
 		// clearStdin();

@@ -1,8 +1,1 @@
-/Lists/art
-/Lists/artur.c
-/Lists/Exercises/arth
-/Lists/Exercises/arthur.c
-/Lists/Exercises/.vscode/settings.json
-/Lists/Exercises/.vscode/tasks.json
-/Lists/Lists.zip
-/Lists/Marc.c
+*.elf
