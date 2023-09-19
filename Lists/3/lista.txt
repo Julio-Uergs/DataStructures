@@ -1,0 +1,39 @@
+    1. Responda as perguntas abaixo. Faça o código em C e apresente o resultado.
+        a) Explique a diferença entre e mostre os valores encontrados: p++; (*p)++; *(p++);
+
+        b) O que quer dizer *(p+10);? p[10];
+
+        c) Explique o que você entendeu da comparação entre ponteiros
+
+    2. Se i e j são variáveis inteiras e p e q ponteiros para int, quais das seguintes expressões de atribuição são ilegais? Se achar necessário comprove no código.
+
+        a) p = &i; b) *q = &j; c) p = &*&i; d) i = (*&)j;
+        e) i = *&j; f) i = *&*&j; g) q = *p; h) i = (*p)++ + *q
+
+
+    3.  O que as linhas abaixo fazem? Apresenta o código.
+        int i=99,j;
+        int *p;
+        p = &i;
+        j = *p + 100;
+
+    4. O que as linhas abaixo fazem? Apresente o código.
+        int a=5;
+        b=12;
+        int *p;
+        int *q;
+        p = &a;
+        q = &b;
+        int c = *p + *q;
+
+    5. Suponha que os elementos de um vetor v são do tipo int e cada int ocupa 8 bytes no seu computador. Se o endereço de v[0] é 55000, qual o valor da expressão  v + 3? 55000 + 8*3 = 55024
+
+    1. Escreva um algoritmo que implemente as seguintes informações: suponha que você tem uma fila de impressão de documentos composto por : numero do documento – cpf do usuário. Esta fila de impressão precisa ser implementada de acordo com o critério FIFO. Faça inserção de documentos na fila de inserção e posteriormente, imprima-os. Quando o documento for impresso, o mesmo será retirado da fila. Sempre imprima dos dados juntamente com os endereços de memória atuais e dos próximos.
+
+    2. Para o mesmo algoritmo anterior, além de considerar o número do documento – cpf do usuário, acrescente o numero de privilégio. Caso o privilégio for 1, o documento deverá ser o primeiro a ir para a fila de impressão, que você pode gerenciar como lista de prioridade. Caso 2, a fila poderá ter seu fluxo normalmente.
+
+    3. Crie uma pilha (pilha1) e peça ao usuário para dizer qual elemento da pilha deve ser removido. Caso seja o último que foi inserido, apresente a pilha impressa. Caso o elemento que se deseja excluir não seja o último, crie uma nova pilha(pilha2), desempilhe os elementos pilha 1 para a pilha 2, até que chegue ao elemento que se desejou desempilhar. Neste momento imprima as duas pilhas. Posteriormente, volte a pilha 1, sendo que os elementos da pilha 2, devam ser novamente empilhados para a pilha 1.
+
+    4. Faça uma função para retirar elementos repetidos de uma lista. Deixe o usuários entrar com os valores, imprimir os valores e selecionar a opção remoção de valores repetidos. Mostre quantos elementos foram excluídos com repetição.
+
+    5. Escreva uma função que multiplica todos os elementos de uma lista por um valor, crie o último nó de checagem, que sempre irá conter qual é esse valor usado para multiplicação. Permita sempre ao usuário digitar elementos para a lista, imprimir a lista e digitar o valor para multiplicar os demais elementos.

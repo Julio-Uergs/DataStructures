@@ -24,6 +24,15 @@ void prntStack(knot *beg) {
 		}
 	}
 }
+
+// void checkIfEmpty(knot **dst) {
+//     if ((*dst) == NULL)				//verifica se é o último  (ou, no caso, o único?) item da pilha
+//             (*dst)->next = NULL;			//se sim, salva o ponteiro como NULL, indicando que ele é o último item.
+//         else
+//             read->next = *dst;			//se não, aponta para o "de baixo"
+//         *dst = new;						//atribuí o novo início, já que ele sempre vai mudar.
+// }
+
 //really enjoyed this, but there are way too many cases that can happen, this is good enough as it is
 void undo (knot **src, knot **dst) {
     knot *read = *src, *prev;
@@ -32,6 +41,8 @@ void undo (knot **src, knot **dst) {
     } else {
         if (read->next == NULL) {
             *src = NULL;
+            if (*dst != NULL)
+                free(*dst);
             *dst = read;
         } else {
             do {
@@ -39,7 +50,9 @@ void undo (knot **src, knot **dst) {
                 read = read->next;
             } while (read->next != NULL); //ou, se eu tivesse um ponteiro de final, o que eu ainda não gosto de ter...
             prev->next = NULL;
-            *dst = read; //fim
+            if (*dst != NULL)
+                free(*dst);
+            *dst = read;
         }
         prntStack(*src);
         prntStack(*dst);
