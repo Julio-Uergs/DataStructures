@@ -8,9 +8,9 @@
 #include <time.h>
 
 typedef struct tie {
-	int val;
-	struct tie *nxt;
-} knot;
+	int val; 			//32 bits
+	struct tie *nxt;	//64 bits
+} knot;					//96 bits
 
 void swap(knot *a, knot *b) {
   int temp = a->val;
