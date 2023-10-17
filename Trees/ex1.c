@@ -1,9 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define menuEntries 4
+/*          22
+       12       30
+    8     20 25    40     */
 
-typedef struct tie {struct tie *left; int val; struct tie *right;} knot;
+#define menuEntries 6
+
+typedef struct tree {int data; struct tree *left, *right;} tree;
 //limpa a tela, independente do sistema operacional e só compila a parte necessária para cada um
 void clear() {
 	#ifdef _WIN32
@@ -26,65 +30,129 @@ void getVal (int *val) {
 	scanf("%d", val);
 	clearStdin();
 }
-//imprime a lista
-void prntStack (knot *beg) {
-	knot *read = beg;
-	int pos = 0;
-	if(beg == NULL) {
-		printf("The stack is empty!\n");
-	} else {
-			printf("Left\t\tVal\tRight\n");
-		do {
-		    printf("%p\t%d\t%p\n", read, read->val, read->right);
-			read = read->right;
-	    } while (read != NULL);
-	}
-	printf("Press Return to Main Menu");
-	getchar();
+//procura na árvore, recursivamente;
+void searchData(tree *root, int data, tree **ptr) {
+    if (root) {
+        *ptr = root;
+        if(data > root->data) {
+            root = root->right;
+        } else {
+            root = root->left;
+        }
+        searchData(root, data, ptr);
+    }
 }
+//Insere na árvore, se o valor já não existir
+void insertData(tree **root, int data) {
+    tree *newData = (tree*) malloc(sizeof(tree)), *ptr = NULL;
+    if (newData) {
+        newData->data = data;
+        if (*root == NULL) {
+            *root = newData;
+        } else {
+            searchData(*root, data, &ptr);
+            if (ptr->data < data) {
+                ptr->right = newData;
+            } else
+                if (ptr->data > data)
+                        ptr->left = newData;
+        }
+        newData->right = NULL;
+        newData->left = NULL;
+    }
+}
+
 //imprime o menu e recebe os valores, por algum motivo a função de receber os valores estava bugando aqui e eu resolvi não perder tempo tentando descobrir o que tinha de errado.
 void mainMenu (int *menu) {
-    clear();
-	printf ("Main menu\n\n1-InsertIntoTree  2-  3-Print  4-Exit\n\nInsert your option: ");
+    // clear();
+	printf ("Main Menu\n\n1-InsertIntoTree  2-PrintTree  3-PreOrder  4-InOrder  5-PostOrder  %d-Exit\n\nInsert your option: ", menuEntries);
 	scanf ("%d", menu);
 	while (*menu < 1 || *menu > menuEntries) {
 		printf ("Invalid option, try again: ");
 		scanf ("%d", menu);
 	}
 	clearStdin();
-    clear();
+    // clear(); //não limpei a tela, caso tu queira ver todos os resultados ao mesmo tempo :)
 }
-
-void insertTree (knot **beg, int *val;) {
-    knot *new;
-    if((new = (knot*) malloc (sizeof(knot))) == NULL) //aloca memória e verifica se houve êxito nessa operação
-        printf("You've filled up all your memory, or something very wrong has happened!\n");
-    else {
-        new->val = val; 				    //atribuí o valor para a variável final.
+//esse foi de boas, tomara que seja só isso e não precise fazer nenhuma correção depois
+void preOrder(tree *root, int level) {
+    if (root) {
+        printf("%d  ", root->data);
+        preOrder(root->left, level + 1);
+        preOrder(root->right, level + 1);
     }
 }
-void printTree (knot *beg) {
-
+//1 2 3 5 7 6 4 -- O Gabriel Camargo me passou a call nesse aqui
+void postOrder(tree *root, int level) {
+    if (root) {
+        if (root->left) {
+            postOrder(root->left, level + 1);
+        } else {
+            printf("%d  ", root->data);
+            if (root->right) {
+                postOrder(root->right, level + 1);
+            }
+            return;
+        }
+        if (root->right) {
+            postOrder(root->right, level + 1);
+        } else {
+            printf("%d  ", root->data);
+            if (root->left) {
+                postOrder(root->right, level + 1);
+            }
+            return;
+        }
+        printf("%d  ", root->data);
+    }
 }
 
-//Não precisa fazer a nova lista!
+// void postOrder(tree *root, int level) {
+//     if (root) {
+//         postOrder(root->left, level + 1);
+//         postOrder(root->right, level + 1);
+//         printf("%d  ", root->data);
+//     }
+// } esse só funciona para árvores simétricas
+
+//simétrica
+void inOrder(tree *root, int level) {
+    if (root) {
+        inOrder(root->left, level + 1);
+        printf("%d  ", root->data);
+        inOrder(root->right, level + 1);
+    }
+}
+// essa é a preOrder só que com um print mais detalhada.
+void printTree(tree *root, int level) {
+    if (root) {
+        printf("Value: %d, Left: %p, Right: %p, Current: %p\n", root->data, root->left, root->right, root);
+        printTree(root->left, level + 1);
+        printTree(root->right, level + 1);
+    }
+}
+
 int main () {
-    knot *beg; //fifo
+    tree *beg;
     int menu, val;
     do {
 		mainMenu(&menu);
 		switch (menu) {
-			case 1: if (beg) {  //!= NULL
-
-            } else {
-                printf("Please insert a value to be added to the trunk");
-                getVal(&val);
-                insertTop(&beg);
-            }
+            case 1: printf("Please insert a value to be added to the tree: ");
+                    getVal(&val);
+                    insertData(&beg, val);
+                    break;
+			case 2: printTree(beg, 0);
 					break;
-			case 2:
-					break;
-			case 3: ;
+			case 3: preOrder(beg, 0);
+                    printf("\n");
+                    break;
+            case 4: inOrder(beg, 0);
+                    printf("\n");
+                    break;
+            case 5: postOrder(beg, 0);
+                    printf("\n");
+                    break;
         }
     } while (menu != menuEntries);
     clear();
