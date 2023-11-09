@@ -1,0 +1,17 @@
+a)          A           Nível 0     Altura 2    | b)        A       Nível 0     Altura 2
+        /   |   \                               |         /   \
+       B    C    D      Nível 1     Altura 1    |        B     C    Nível 1     Altura 1
+     /   \       |                              |       / \    |
+    E     F      G      Nível 2     Altura 0    |      D   E   F    Nível 2     Altura 0
+                                                |
+a)  i.   Grau dos nós:          2               |   i.   Grau dos nós:          2
+    ii.  Grau da árvore:        3               |   ii.  Grau da árvore:        2
+    iii. Folhas da árvore:      4               |   iii. Folhas da árvore:      3
+    iv.  Raíz da árvore:        1               |   iv.  Raíz da árvore:        1
+    v.   Nível 0:               3               |   v.   Nível 0:               2
+         Nível 1:               3               |        Nível 1:               3
+    vi.  Altura da árvore       2               |   vi.  Altura da árvore       2
+    vii. É uma árvore binária? Não              |   vii. É uma árvore binária? Sim
+
+    A altura máxima de uma árvore binária com n nós é:          n-1
+    A altura mínima de uma árvore binária com n nós é:     log2 (n) - 1

@@ -5,7 +5,7 @@
        12       30
     8     20 25    40     */
 
-#define menuEntries 6
+#define menuEntries 7
 
 typedef struct tree {int data; struct tree *left, *right;} tree;
 //limpa a tela, independente do sistema operacional e só compila a parte necessária para cada um
@@ -107,13 +107,13 @@ void postOrder(tree *root, int level) {
     }
 }
 
-// void postOrder(tree *root, int level) {
-//     if (root) {
-//         postOrder(root->left, level + 1);
-//         postOrder(root->right, level + 1);
-//         printf("%d  ", root->data);
-//     }
-// } esse só funciona para árvores simétricas
+void batata (tree *root, int level) {
+    if (root) {
+        batata(root->left, level + 1);
+        batata(root->right, level + 1);
+        printf("%d  ", root->data);
+    }
+}
 
 //simétrica
 void inOrder(tree *root, int level) {
@@ -153,6 +153,7 @@ int main () {
             case 5: postOrder(beg, 0);
                     printf("\n");
                     break;
+            case 6 : batata (beg, 0);
         }
     } while (menu != menuEntries);
     clear();
